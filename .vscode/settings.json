@@ -1,21 +1,11 @@
 {
-    "python.testing.unittestArgs": [
-        "-v",
-        "-s",
-        "./test",
-        "-p",
-        "*test*.py"
-    ],
-    "python.testing.pytestEnabled": false,
-    "python.testing.unittestEnabled": true,
-    "python.linting.pylintEnabled": true,
-    "pylint.importStrategy": "fromEnvironment",
-    "python.analysis.stubPath": "stubs/CM3D2.Serialization-stubs",
-    "editor.rulers": [
-        80,
-        120
-    ],
-    "files.exclude": {
-        "cm3d2converter": true
-    }
+  "python.testing.unittestArgs": ["-v", "-s", "./test", "-p", "*test*.py"],
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "pylint.importStrategy": "fromEnvironment",
+  "editor.rulers": [80, 120],
+  "files.exclude": {
+    "braddon": true
+  }
 }
