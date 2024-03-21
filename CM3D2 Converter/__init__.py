@@ -8,8 +8,8 @@ bl_info = {
     "blender": (3, 3, 0),
     "description": "カスメ関連機能削除改変プラグイン",
     "warning": "",
-    "wiki_url": "https://github.com/luvoid/Blender-CM3D2-Converter/blob/bl_28/README.md",
-    "tracker_url": "https://github.com/luvoid/Blender-CM3D2-Converter",
+    "wiki_url": "https://github.com/Ryokusa/Blender-CM3D2-Converter/blob/bl_28/README.md",
+    "tracker_url": "https://github.com/Ryokusa/Blender-CM3D2-Converter",
     "category": "Import-Export",
 }
 

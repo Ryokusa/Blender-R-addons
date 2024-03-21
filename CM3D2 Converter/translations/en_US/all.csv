@@ -445,7 +445,7 @@ Context,Original,Translation,Comments
 "*","オブジェクトモードで実行してください","Run in Object Mode!"
 # misc_INFO_MT_help.py
 "*","CM3D2 Converterの更新履歴","CM3D2 Converter Update History"
-"Operator","CM3D2 Converterを更新「luv」バージョン","Update CM3D2 Converter (\"luv\" version)"
+"Operator","CM3D2 Converterを更新「Ryokusa」バージョン","Update CM3D2 Converter (\"Ryokusa\" version)"
 "*","GitHubから最新版のCM3D2 Converterアドオンをダウンロードし上書き更新します","Will quickly download the latest CM3D2 Converter from the Github Page."
 "*","更新後にBlenderを再起動","Restart Blender After Updating"
 "*","再起動後にコンソールを閉じる","Close the Console after Restart"

@@ -158,10 +158,8 @@ class INFO_MT_help_CM3D2_Converter_RSS(bpy.types.Menu):
 @compat.BlRegister()
 class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
     bl_idname = "script.update_cm3d2_converter"
-    bl_label = "CM3D2 Converterを更新「luv」バージョン"
-    bl_description = (
-        "GitHubから最新版のCM3D2 Converterアドオンをダウンロードし上書き更新します"
-    )
+    bl_label = "CM3D2 Converterを更新「Ryokusa」バージョン"
+    bl_description = "GitHubから最新版のアドオンをダウンロードし上書き更新します"
     bl_options = {"REGISTER"}
 
     is_restart = bpy.props.BoolProperty(
