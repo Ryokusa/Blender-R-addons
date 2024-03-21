@@ -16,7 +16,7 @@ def menu_func(self, context):
     icon_id = common.kiss_icon()
     self.layout.separator()
     sub = self.layout.column()
-    self.layout.label(text="CM3D2 Converter", icon_value=icon_id)
+    self.layout.label(text="BR Addon", icon_value=icon_id)
     if not compat.IS_LEGACY:
         sub.separator()
         sub.operator("object.change_base_shape_key", icon="SHAPEKEY_DATA")

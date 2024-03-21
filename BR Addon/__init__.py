@@ -8,8 +8,8 @@ bl_info = {
     "blender": (3, 3, 0),
     "description": "カスメ関連機能削除改変プラグイン",
     "warning": "",
-    "wiki_url": "https://github.com/Ryokusa/Blender-CM3D2-Converter/blob/bl_28/README.md",
-    "tracker_url": "https://github.com/Ryokusa/Blender-CM3D2-Converter",
+    "wiki_url": "https://github.com/Ryokusa/Blender-R-addons/blob/bl_28/README.md",
+    "tracker_url": "https://github.com/Ryokusa/Blender-R-addons",
     "category": "Import-Export",
 }
 
@@ -187,7 +187,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
             )
 
         col = self.layout.column()
-        col.label(text="CM3D2 Converter Info")
+        col.label(text="Blender-R-addons Info")
         factor = 0.25
         split = compat.layout_split(col.row(), factor)
         split.label(text="Add-on Version: ")
