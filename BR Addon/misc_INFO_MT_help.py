@@ -20,9 +20,6 @@ from . import compat
 from .translations.pgettext_functions import *
 
 
-# TODO: 更新＆設定メニューを変更する
-
-
 # メニュー等に項目追加
 def menu_func(self, context):
     icon_id = common.kiss_icon()
