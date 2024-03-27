@@ -33,7 +33,7 @@
 ## おまけツール (Misc Tools)
 
 このアドオンで追加された機能は以下のアイコンで統一されています。
-![専用アイコン](<BR Addon/kiss.png>)
+<img src="BR Addon/kiss.png" width="80"/>
 
 ### クイック・ウェイト転送
 
