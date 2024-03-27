@@ -210,8 +210,8 @@ def pdoc_blender_add_on(module: ModuleType, out_dir: Path | str):
 def main():
     modules_path = Path(f'{__file__}/../../').resolve()
     sys.path.append(str(modules_path)) # Make it possible to find "../CM3D2 Converter"
-    cm3d2converter = __import__("CM3D2 Converter")
-    pdoc_blender_add_on(cm3d2converter, 'docs/build')
+    br_addon = __import__("BR Addon")
+    pdoc_blender_add_on(br_addon, 'docs/build')
 
 if __name__ == '__main__':
     main()
