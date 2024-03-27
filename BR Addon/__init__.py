@@ -221,35 +221,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
 
         self.layout.prop(self, "backup_ext", icon="FILE_BACKUP")
 
-        box = self.layout.box()
-        box.label(text="Default Armature Settings", icon="ARMATURE_DATA")
-        if not compat.IS_LEGACY:
-            box.use_property_split = True
-        box.prop(self, "bone_display_type", text="Display As")
-        if compat.IS_LEGACY:
-            flow = box.column_flow(align=True)
-        else:
-            flow = box.grid_flow(align=True)
-        col = flow.column()
-        col.prop(self, "show_bone_names", text="Names")
-        col = flow.column()
-        col.prop(self, "show_bone_axes", text="Axes")
-        col = flow.column()
-        col.prop(self, "show_bone_custom_shapes", text="Shapes")
-        col = flow.column()
-        col.prop(self, "show_bone_group_colors", text="Group Colors")
-        col = flow.column()
-        col.prop(self, "show_bone_in_front", text="In Front")
-
-        box = self.layout.box()
-        box.label(text="各操作の初期パラメータ", icon="MATERIAL")
-        row = box.row()  # export
-        row.prop(self, "custom_normal_blend", icon="SNAP_NORMAL")
-        row.prop(self, "skip_shapekey", icon="SHAPEKEY_DATA")
-        row.prop(self, "is_apply_modifiers", icon="MODIFIER")
-
         row = self.layout.row()
-        # TODO: Update関連処理を変更
         row.operator("script.update_br_addon", icon="FILE_REFRESH")
         row.menu("INFO_MT_help_BR_Addon_RSS", icon="INFO")
 
