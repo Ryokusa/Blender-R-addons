@@ -410,11 +410,7 @@ def unregister():
                 misc_VIEW3D_MT_edit_mesh_split.menu_func
             )
 
-    bpy.types.DATA_PT_context_arm.remove(misc_DATA_PT_context_arm.menu_func)
     bpy.types.DATA_PT_modifiers.remove(misc_DATA_PT_modifiers.menu_func)
-    bpy.types.INFO_HT_header.remove(misc_INFO_HT_header.menu_func)
-
-    bpy.types.OBJECT_PT_context_object.remove(misc_OBJECT_PT_context_object.menu_func)
     bpy.types.OBJECT_PT_transform.remove(misc_OBJECT_PT_transform.menu_func)
     bpy.types.VIEW3D_MT_pose_apply.remove(misc_VIEW3D_MT_pose_apply.menu_func)
 
