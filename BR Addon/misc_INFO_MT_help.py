@@ -27,21 +27,25 @@ from .translations.pgettext_functions import *
 def menu_func(self, context):
     icon_id = common.kiss_icon()
     self.layout.separator()
-    self.layout.operator("script.update_cm3d2_converter", icon_value=icon_id)
+    self.layout.operator("script.update_br_addon", icon_value=icon_id)
     self.layout.operator(
         "wm.call_menu",
         icon_value=icon_id,
-        text=INFO_MT_help_CM3D2_Converter_RSS.bl_label,
-    ).name = INFO_MT_help_CM3D2_Converter_RSS.bl_idname
-    self.layout.operator("wm.show_cm3d2_converter_preference", icon_value=icon_id)
-    # self.layout.operator('wm.call_menu', icon_value=icon_id, text=INFO_MT_help_cm3d2_converter_reload_notice.bl_label).name = INFO_MT_help_cm3d2_converter_reload_notice.bl_idname
+        text=INFO_MT_help_BR_Addon_RSS.bl_label,
+    ).name = INFO_MT_help_BR_Addon_RSS.bl_idname
+    self.layout.operator("wm.show_br_converter_preference", icon_value=icon_id)
+    self.layout.operator(
+        "wm.call_menu",
+        icon_value=icon_id,
+        text=INFO_MT_help_br_converter_reload_notice.bl_label,
+    ).name = INFO_MT_help_br_converter_reload_notice.bl_idname
 
 
 # 更新履歴メニュー
 @compat.BlRegister()
-class INFO_MT_help_CM3D2_Converter_RSS(bpy.types.Menu):
-    bl_idname = "INFO_MT_help_CM3D2_Converter_RSS"
-    bl_label = "CM3D2 Converterの更新履歴"
+class INFO_MT_help_BR_Addon_RSS(bpy.types.Menu):
+    bl_idname = "INFO_MT_help_BR_Addon_RSS"
+    bl_label = "アドオンの更新履歴"
 
     def draw(self, context):
         try:
@@ -156,9 +160,9 @@ class INFO_MT_help_CM3D2_Converter_RSS(bpy.types.Menu):
 
 
 @compat.BlRegister()
-class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
-    bl_idname = "script.update_cm3d2_converter"
-    bl_label = "CM3D2 Converterを更新「Ryokusa」バージョン"
+class CNV_OT_update_br_converter(bpy.types.Operator):
+    bl_idname = "script.update_br_addon"
+    bl_label = "アドオンを更新「Ryokusa」バージョン"
     bl_description = "GitHubから最新版のアドオンをダウンロードし上書き更新します"
     bl_options = {"REGISTER"}
 
@@ -173,6 +177,7 @@ class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
         ("current", f_iface_("Current ({branch})", branch=common.BRANCH), ""),
         ("bl_28", "bl_28", ""),
         ("testing", "testing", ""),
+        ("delete-cm3-operator", "delete-cm3-operator", ""),
     ]
     branch = bpy.props.EnumProperty(items=items, name="Branch", default="current")
 
@@ -181,7 +186,7 @@ class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
 
     def draw(self, context):
         layout = self.layout
-        layout.menu("INFO_MT_help_CM3D2_Converter_RSS", icon="INFO")
+        layout.menu("INFO_MT_help_BR_Addon_RSS", icon="INFO")
         layout.separator()
         layout.prop(self, "branch")
         col = layout.column()
@@ -194,7 +199,7 @@ class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
         branch = self.branch
         if branch == "current":
             branch = common.BRANCH
-        zip_path = Path(bpy.app.tempdir) / f"Blender-CM3D2-Converter-{branch}.zip"
+        zip_path = Path(bpy.app.tempdir) / f"Blender-R-addons-{branch}.zip"
         addon_path = Path(__file__).parent
 
         response = urllib.request.urlopen(common.URL_MODULE.format(branch=branch))
@@ -206,8 +211,8 @@ class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
         sub_dir = ""
         for path in zip_file.namelist():
             if not sub_dir and os.path.split(os.path.split(path)[0])[1] in (
-                "CM3D2 Converter",
-                "CM3D2_Converter",
+                "BR Addon",
+                "BR_Addon",
             ):
                 sub_dir = path
                 continue
@@ -265,12 +270,12 @@ class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
             if compat.IS_LEGACY:
                 self.report(
                     type={"INFO"},
-                    message="Blender-CM3D2-Converterを更新しました、再起動して下さい",
+                    message="BR Addonを更新しました、再起動して下さい",
                 )
             else:
                 bpy.ops.preferences.addon_refresh()
                 bpy.ops.wm.call_menu(
-                    name=INFO_MT_help_cm3d2_converter_reload_notice.bl_idname
+                    name=INFO_MT_help_br_converter_reload_notice.bl_idname
                 )
                 self.report(
                     type={"INFO"},
@@ -280,10 +285,10 @@ class CNV_OT_update_cm3d2_converter(bpy.types.Operator):
 
 
 @compat.BlRegister()
-class CNV_OT_show_cm3d2_converter_preference(bpy.types.Operator):
-    bl_idname = "wm.show_cm3d2_converter_preference"
-    bl_label = "CM3D2 Converterの設定画面を開く"
-    bl_description = "CM3D2 Converterアドオンの設定画面を表示します"
+class CNV_OT_show_br_converter_preference(bpy.types.Operator):
+    bl_idname = "wm.show_br_converter_preference"
+    bl_label = "BR Addon設定画面を開く"
+    bl_description = "BR Addonの設定画面を表示します"
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context):
@@ -315,9 +320,9 @@ class CNV_OT_show_cm3d2_converter_preference(bpy.types.Operator):
 
 
 @compat.BlRegister()
-class INFO_MT_help_cm3d2_converter_reload_notice(bpy.types.Menu):
-    bl_idname = "INFO_MT_help_cm3d2_converter_reload_notice"
-    bl_label = "CM3D2 Converter Reload Notice"
+class INFO_MT_help_br_converter_reload_notice(bpy.types.Menu):
+    bl_idname = "INFO_MT_help_br_converter_reload_notice"
+    bl_label = "BR Addon Reload Notice"
 
     def draw(self, context):
         layout = self.layout

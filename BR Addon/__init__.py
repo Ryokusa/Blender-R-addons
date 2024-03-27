@@ -253,10 +253,10 @@ class AddonPreferences(bpy.types.AddonPreferences):
 
         row = self.layout.row()
         # TODO: Update関連処理を変更
-        # row.operator("script.update_cm3d2_converter", icon="FILE_REFRESH")
-        # row.menu("INFO_MT_help_CM3D2_Converter_RSS", icon="INFO")
+        row.operator("script.update_br_addon", icon="FILE_REFRESH")
+        row.menu("INFO_MT_help_BR_Addon_RSS", icon="INFO")
 
-        # self.layout.operator("cm3d2_converter.dump_py_messages")
+        self.layout.operator("cm3d2_converter.dump_py_messages")
 
 
 # プラグインをインストールしたときの処理
