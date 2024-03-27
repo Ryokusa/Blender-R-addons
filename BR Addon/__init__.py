@@ -45,15 +45,12 @@ if True:
     from . import compat
     from . import common
 
-    from . import misc_DATA_PT_context_arm
     from . import misc_DATA_PT_modifiers
-    from . import misc_INFO_HT_header
     from . import misc_INFO_MT_curve_add
     from . import misc_INFO_MT_help
     from . import misc_MESH_MT_attribute_context_menu
     from . import misc_MESH_MT_shape_key_specials
     from . import misc_MESH_MT_vertex_group_specials
-    from . import misc_OBJECT_PT_context_object
     from . import misc_OBJECT_PT_transform
     from . import misc_VIEW3D_MT_edit_mesh_specials
     from . import misc_VIEW3D_MT_edit_mesh_split
@@ -335,11 +332,7 @@ def register():
                 misc_VIEW3D_MT_edit_mesh_split.menu_func
             )
 
-    bpy.types.DATA_PT_context_arm.append(misc_DATA_PT_context_arm.menu_func)
     bpy.types.DATA_PT_modifiers.append(misc_DATA_PT_modifiers.menu_func)
-    bpy.types.INFO_HT_header.append(misc_INFO_HT_header.menu_func)
-
-    bpy.types.OBJECT_PT_context_object.append(misc_OBJECT_PT_context_object.menu_func)
     bpy.types.OBJECT_PT_transform.append(misc_OBJECT_PT_transform.menu_func)
     bpy.types.VIEW3D_MT_pose_apply.append(misc_VIEW3D_MT_pose_apply.menu_func)
 
