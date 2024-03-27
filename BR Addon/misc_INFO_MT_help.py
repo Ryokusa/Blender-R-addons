@@ -177,7 +177,6 @@ class CNV_OT_update_br_converter(bpy.types.Operator):
         ("current", f_iface_("Current ({branch})", branch=common.BRANCH), ""),
         ("bl_28", "bl_28", ""),
         ("testing", "testing", ""),
-        ("delete-cm3-operator", "delete-cm3-operator", ""),
     ]
     branch = bpy.props.EnumProperty(items=items, name="Branch", default="current")
 
