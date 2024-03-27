@@ -1095,3 +1095,7 @@ Context,Original,Translation,Comments
 "*","マテリアル","Material","# FROM <model_export.py & model_import.py>"
 "*","種類に合わせてマテリアルを装飾","Decorate materials according to type","# FROM <model_import.py & mate_import.py & misc_MATERIAL_PT_context_material.py & misc_MATERIAL_PT_context_material.py & misc_MATERIAL_PT_context_material.py>"
 "*","割り当てのない頂点グループを削除","Remove vertex groups with no assigned vertices","# FROM <model_import.py & misc_MESH_MT_vertex_group_specials.py>"
+
+"Menu", "BR Addon再読み込み通知", "BR Addon Reload Notice"
+"*","更新を反映するにはスクリプトを再読込してください", "Scripts must be reloaded to apply changes.", "#FROM <misc_INFO_MT_help.py>"
+"*", "右上のブレンダーロゴ > システム > Reload Scripts", "Top Bar > Blender Logo > System > Reload Scripts"

@@ -318,11 +318,11 @@ class CNV_OT_show_br_converter_preference(bpy.types.Operator):
 @compat.BlRegister()
 class INFO_MT_help_br_converter_reload_notice(bpy.types.Menu):
     bl_idname = "INFO_MT_help_br_converter_reload_notice"
-    bl_label = "BR Addon Reload Notice"
+    bl_label = "BR Addon再読み込み通知"
 
     def draw(self, context):
         layout = self.layout
-        layout.label(text="Scripts must be reloaded to apply changes.")
-        layout.label(text="Top Bar > Blender Logo > System > Reload Scripts")
+        layout.label(text="更新を反映するにはスクリプトを再読込してください")
+        layout.label(text="右上のブレンダーロゴ > システム > Reload Scripts")
         # layout.separator()
         # layout.operator('wm.call_menu', text="Show me").name = 'TOPBAR_MT_blender_system'
