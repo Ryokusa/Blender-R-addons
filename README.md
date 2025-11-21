@@ -3,6 +3,8 @@
 
 [https://luvoid.github.io/Blender-CM3D2-Converter](https://luvoid.github.io/Blender-CM3D2-Converter/) ([Translated](https://luvoid-github-io.translate.goog/Blender-CM3D2-Converter/index.html?_x_tr_sl=auto&_x_tr_tl=default)) -->
 
+[Blender-CM3D2-Converter](https://luvoid.github.io/Blender-CM3D2-Converter)の（多分）Blender4.0対応フォーク版です
+
 # Blender-Ryokusasa-Addon
 
 <!-- [Blender-CM3D2-Converter](https://github.com/luvoid/Blender-CM3D2-Converter) から CM3D2 関連の機能を取り除いたもの -->
