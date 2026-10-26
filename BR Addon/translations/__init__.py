@@ -4,7 +4,7 @@ import csv
 import bpy
 import re
 import unicodedata
-from bl_i18n_utils import settings as bl_i18n_settings
+from _bl_i18n_utils import settings as bl_i18n_settings
 from .. import compat
 from .pgettext_functions import *
 
