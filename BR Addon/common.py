@@ -14,7 +14,7 @@ from . import compat
 bl_info = {}
 ADDON_NAME = "BR Addon"
 BASE_PATH_TEX = "Assets/texture/texture/"
-BRANCH = "bl_28"
+BRANCH = "bl_523"
 URL_REPOS = "https://github.com/Ryokusa/Blender-R-addons/"
 URL_ATOM = URL_REPOS + "commits/{branch}.atom"
 URL_MODULE = URL_REPOS + "archive/{branch}.zip"

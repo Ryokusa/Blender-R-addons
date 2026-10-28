@@ -4,35 +4,16 @@
 bl_info = {
     "name": "BR Addon",
     "author": "@saidenka_cm3d2, @trzrz, @luvoid @ryokusa",
-    "version": ("ryokusa", 2024, 3, 19),
-    "blender": (3, 3, 0),
+    "version": ("ryokusa", 2026, 10, 28),
+    "blender": (5, 2, 0),
     "description": "カスメ関連機能削除改変プラグイン",
     "warning": "",
-    "wiki_url": "https://github.com/Ryokusa/Blender-R-addons/blob/bl_28/README.md",
+    "wiki_url": "https://github.com/Ryokusa/Blender-R-addons/blob/bl_523/README.md",
     "tracker_url": "https://github.com/Ryokusa/Blender-R-addons",
     "category": "Import-Export",
 }
 
 import importlib
-from . import package_helper
-
-if "bpy" in locals():
-    importlib.reload(package_helper)
-
-
-# Install dependencies
-def install_dependencies():
-    import bpy  # import inside a function, so "bpy" in locals() check later is unchanged
-
-    if not package_helper.check_module("pythonnet"):
-        print("Installing dependency 'pythonnet'...")
-        package_helper.install_package("pythonnet==3.0.1")
-        raise Exception("Dependencies installed. Restart is required.")
-    else:
-        print("Package 'pythonnet' is installed")
-
-
-install_dependencies()
 
 
 # Dynamically detect what modules are imported in the following section
@@ -314,7 +295,7 @@ def register():
     locale = translations.get_locale()
     if locale != "ja_JP":
         bl_info["wiki_url"] = (
-            common.URL_REPOS + f"blob/bl_28/translations/{locale}/README.md"
+            common.URL_REPOS + f"blob/{common.BRANCH}/translations/{locale}/README.md"
         )
 
 

@@ -379,16 +379,18 @@ class CNV_OT_forced_modifier_apply(bpy.types.Operator):
                     for vert in temp_me.vertices:
                         vert.co = deforms[vert.index].copy()
 
-                    override = context.copy()
-                    override["object"] = temp_ob
-                    for index, mod in enumerate(temp_ob.modifiers):
-                        if self.is_applies[index].value:
-                            try:
-                                bpy.ops.object.modifier_apply(
-                                    override, modifier=mod.name
-                                )
-                            except:
-                                temp_ob.modifiers.remove(mod)
+                    with compat.temp_override(
+                        context,
+                        object=temp_ob,
+                        active_object=temp_ob,
+                        selected_objects=[temp_ob],
+                    ):
+                        for index, mod in enumerate(temp_ob.modifiers):
+                            if self.is_applies[index].value:
+                                try:
+                                    bpy.ops.object.modifier_apply(modifier=mod.name)
+                                except Exception:
+                                    temp_ob.modifiers.remove(mod)
 
                     new_shape_deforms.append([v.co.copy() for v in temp_me.vertices])
                 except Exception as e:
@@ -426,55 +428,59 @@ class CNV_OT_forced_modifier_apply(bpy.types.Operator):
         copy_modifiers = ob.modifiers[:]
         mod_count = len(copy_modifiers)
         mod_progress = 0
-        override = context.copy()
-        override["object"] = ob
-        for index, mod in enumerate(copy_modifiers):
-            # if index >= 32: # luvoid : can only apply 32 modifiers at once.
-            #    break
-            if self.is_applies[index].value and (
-                mod.type != "ARMATURE" or not compat.IS_LEGACY
-            ):
-                if mod.type == "MIRROR" and mod.use_mirror_vertex_groups:
-                    for vg in ob.vertex_groups[:]:
-                        replace_list = (
-                            (r"\.L$", ".R"),
-                            (r"\.R$", ".L"),
-                            (r"\.l$", ".r"),
-                            (r"\.r$", ".l"),
-                            (r"_L$", "_R"),
-                            (r"_R$", "_L"),
-                            (r"_l$", "_r"),
-                            (r"_r$", "_l"),
+        with compat.temp_override(
+            context,
+            object=ob,
+            active_object=ob,
+            selected_objects=[ob],
+        ):
+            for index, mod in enumerate(copy_modifiers):
+                # if index >= 32: # luvoid : can only apply 32 modifiers at once.
+                #    break
+                if self.is_applies[index].value and (
+                    mod.type != "ARMATURE" or not compat.IS_LEGACY
+                ):
+                    if mod.type == "MIRROR" and mod.use_mirror_vertex_groups:
+                        for vg in ob.vertex_groups[:]:
+                            replace_list = (
+                                (r"\.L$", ".R"),
+                                (r"\.R$", ".L"),
+                                (r"\.l$", ".r"),
+                                (r"\.r$", ".l"),
+                                (r"_L$", "_R"),
+                                (r"_R$", "_L"),
+                                (r"_l$", "_r"),
+                                (r"_r$", "_l"),
+                            )
+                            for before, after in replace_list:
+                                mirrored_name = re.sub(before, after, vg.name)
+                                if mirrored_name not in ob.vertex_groups:
+                                    ob.vertex_groups.new(name=mirrored_name)
+                    try:
+                        bpy.ops.object.modifier_apply(modifier=mod.name)
+                    except Exception as e:
+                        # ob.modifiers.remove(mod)
+                        self.report(
+                            type={"ERROR", "WARNING"},
+                            message=f_tip_(
+                                "Could not apply '{type}' modifier \"{name}\"",
+                                type=mod.type,
+                                name=mod.name,
+                            ),
                         )
-                        for before, after in replace_list:
-                            mirrored_name = re.sub(before, after, vg.name)
-                            if mirrored_name not in ob.vertex_groups:
-                                ob.vertex_groups.new(override, name=mirrored_name)
-                try:
-                    bpy.ops.object.modifier_apply(override, modifier=mod.name)
-                except Exception as e:
-                    # ob.modifiers.remove(mod)
-                    self.report(
-                        type={"ERROR", "WARNING"},
-                        message=f_tip_(
-                            "Could not apply '{type}' modifier \"{name}\"",
-                            type=mod.type,
-                            name=mod.name,
-                        ),
-                    )
-                    print(
-                        f_(
-                            "Error applying '{type}' modifier \"{name}\":\n\t",
-                            type=mod.type,
-                            name=mod.name,
-                        ),
-                        e,
-                    )
+                        print(
+                            f_(
+                                "Error applying '{type}' modifier \"{name}\":\n\t",
+                                type=mod.type,
+                                name=mod.name,
+                            ),
+                            e,
+                        )
 
-            mod_progress += 1 if (mod.type != "ARMATURE" or not compat.IS_LEGACY) else 0
-            context.window_manager.progress_update(
-                progress_start + (progress + mod_progress / mod_count) / progress_count
-            )
+                mod_progress += 1 if (mod.type != "ARMATURE" or not compat.IS_LEGACY) else 0
+                context.window_manager.progress_update(
+                    progress_start + (progress + mod_progress / mod_count) / progress_count
+                )
 
         # Calculate custom normals for armature modifiers in legacy blender
         if arm_ob:
@@ -527,39 +533,43 @@ class CNV_OT_forced_modifier_apply(bpy.types.Operator):
                 progress_start + progress / progress_count
             )
 
-        override = context.copy()
-        override["object"] = ob
-        for index, mod in enumerate(copy_modifiers):
-            # if index >= 32: # luvoid : can only apply 32 modifiers at once.
-            #    break
-            if self.is_applies[index].value and (
-                mod.type == "ARMATURE" and compat.IS_LEGACY
-            ):
-                try:
-                    bpy.ops.object.modifier_apply(override, modifier=mod.name)
-                except Exception as e:
-                    # ob.modifiers.remove(mod)
-                    self.report(
-                        type={"ERROR", "WARNING"},
-                        message=f_tip_(
-                            "Could not apply '{mod_type}' modifier \"{mod_name}\"",
-                            mod_type=mod.type,
-                            mod_name=mod.name,
-                        ),
-                    )
-                    print(
-                        f_(
-                            "Could not apply '{mod_type}' modifier \"{mod_name}\":\n\t",
-                            mod_type=mod.type,
-                            mod_name=mod.name,
-                        ),
-                        e,
-                    )
+        with compat.temp_override(
+            context,
+            object=ob,
+            active_object=ob,
+            selected_objects=[ob],
+        ):
+            for index, mod in enumerate(copy_modifiers):
+                # if index >= 32: # luvoid : can only apply 32 modifiers at once.
+                #    break
+                if self.is_applies[index].value and (
+                    mod.type == "ARMATURE" and compat.IS_LEGACY
+                ):
+                    try:
+                        bpy.ops.object.modifier_apply(modifier=mod.name)
+                    except Exception as e:
+                        # ob.modifiers.remove(mod)
+                        self.report(
+                            type={"ERROR", "WARNING"},
+                            message=f_tip_(
+                                "Could not apply '{mod_type}' modifier \"{mod_name}\"",
+                                mod_type=mod.type,
+                                mod_name=mod.name,
+                            ),
+                        )
+                        print(
+                            f_(
+                                "Could not apply '{mod_type}' modifier \"{mod_name}\":\n\t",
+                                mod_type=mod.type,
+                                mod_name=mod.name,
+                            ),
+                            e,
+                        )
 
-            mod_progress += 1 if (mod.type == "ARMATURE" and compat.IS_LEGACY) else 0
-            context.window_manager.progress_update(
-                progress_start + (progress + mod_progress / mod_count) / progress_count
-            )
+                mod_progress += 1 if (mod.type == "ARMATURE" and compat.IS_LEGACY) else 0
+                context.window_manager.progress_update(
+                    progress_start + (progress + mod_progress / mod_count) / progress_count
+                )
 
         progress += 1
         context.window_manager.progress_update(
@@ -581,8 +591,7 @@ class CNV_OT_forced_modifier_apply(bpy.types.Operator):
                     return {"FINISHED", "CANCELLED"}
 
             for shape_index, deforms in enumerate(new_shape_deforms):
-                bpy.ops.object.shape_key_add(context.copy(), from_mix=False)
-                shape = ob.active_shape_key
+                shape = ob.shape_key_add(from_mix=False)
                 shape.name = shape_names[shape_index]
 
                 for vert in me.vertices:
@@ -624,7 +633,6 @@ class CNV_OT_forced_modifier_apply(bpy.types.Operator):
                 output_no.rotate(output_rot)
 
                 custom_normals[i] = output_no
-            me.use_auto_smooth = True
             me.normals_split_custom_set(custom_normals)
 
             progress += 1

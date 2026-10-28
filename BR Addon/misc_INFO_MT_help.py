@@ -172,6 +172,7 @@ class CNV_OT_update_br_converter(bpy.types.Operator):
 
     items = [
         ("current", f_iface_("Current ({branch})", branch=common.BRANCH), ""),
+        ("bl_523", "bl_523", ""),
         ("bl_28", "bl_28", ""),
         ("testing", "testing", ""),
     ]

@@ -55,25 +55,22 @@ class CNV_OT_attribute_from_custom_normals(bpy.types.Operator):
         pre_mode = ob.mode
         bpy.ops.object.mode_set(mode='OBJECT')
 
-        me.calc_normals_split()
-
         if (compat.IS_LEGACY or bpy.app.version < (2, 91)):
             return {'ERROR'}
         else:
             attribute = me.attributes.new('custom_normals', self.data_type, 'CORNER')
-            attribute_data = attribute.data
 
-        for key in attribute.data.keys():
-            print(repr(key))
-
-        for loop_index, loop in enumerate(me.loops):
+        for loop_index, _loop in enumerate(me.loops):
+            normal = me.corner_normals[loop_index]
+            if hasattr(normal, "vector"):
+                normal = normal.vector
             if isinstance(attribute, bpy.types.FloatVectorAttribute):
-                attribute.data[loop_index].vector = loop.normal
+                attribute.data[loop_index].vector = normal
             else:
                 attribute.data[loop_index].color = ( # convert from range(-1, 1) to range(0, 1)
-                    loop.normal[0] * 0.5 + 0.5,
-                    loop.normal[1] * 0.5 + 0.5,
-                    loop.normal[2] * 0.5 + 0.5,
+                    normal[0] * 0.5 + 0.5,
+                    normal[1] * 0.5 + 0.5,
+                    normal[2] * 0.5 + 0.5,
                     1,
                 )
 

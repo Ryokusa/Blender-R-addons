@@ -3,7 +3,7 @@
 
 [https://luvoid.github.io/Blender-CM3D2-Converter](https://luvoid.github.io/Blender-CM3D2-Converter/) ([Translated](https://luvoid-github-io.translate.goog/Blender-CM3D2-Converter/index.html?_x_tr_sl=auto&_x_tr_tl=default)) -->
 
-[Blender-CM3D2-Converter](https://luvoid.github.io/Blender-CM3D2-Converter)の（多分）Blender4.0対応フォーク版です
+[Blender-CM3D2-Converter](https://luvoid.github.io/Blender-CM3D2-Converter)の Blender 5.2.3 対応フォーク版です
 
 # Blender-Ryokusasa-Addon
 
@@ -11,6 +11,7 @@
 
 **注意点**
 
+- Blender 5.2.3 向けのアドオンです（`bl_info` の最小バージョンは 5.2.0）
 - Blender の便利機能を追加するアドオンです
 
 ## 目次
@@ -24,7 +25,7 @@
 
 ## インストール
 
-画面右上の緑色の「Clone or download」→「[Download ZIP](https://github.com/Ryokusa/Blender-R-addons/archive/bl_28.zip)」からファイルをダウンロード・解凍し、  
+画面右上の緑色の「Clone or download」→「[Download ZIP](https://github.com/Ryokusa/Blender-R-addons/archive/bl_523.zip)」からファイルをダウンロード・解凍し、  
 　 「~\addons\BR addon\＊.py」となるように配置してください。
 一度インストールしてしまえば、アドオン設定画面かヘルプメニューからアップデート可能です。
 
@@ -138,7 +139,10 @@
 - VIEW3D_MT_edit_mesh_splits
   - Split Sharp Edges
 - VIEW3D_MT_pose_apply
+  - 現在のポーズで素体化
+    - 現在のポーズを素体として適用します
   - Copy Prime Field
+    - 選択中のアーマチュアの見た目ポーズを、アクティブなアーマチュアの Prime Field として Pose Asset / Action に保存します
 - MESH_MT_attribute_context_menu
   - From Custom Normals
     - Creates a new attribute from the custom split normals

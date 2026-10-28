@@ -1,10 +1,8 @@
 
 bpy==3.4                 # Blender-as-a-module. Needed to run unit tests.
-pythonnet==3.0.1         # Used to load C# Managed DLLs
 
 
 # These requirements are mostly to make life easier when using an IDE
 
 blender-stubs==3.10.27   # Provides stubs for autocomplete and other LSP features.
 pylint==2.17.4           # Checks code style
-git+https://github.com/luvoid/pythonnet-stubs.git@master

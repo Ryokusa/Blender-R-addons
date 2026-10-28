@@ -717,6 +717,11 @@ def get_prefs(context):
     return context.preferences
 
 
+def temp_override(context, **kwargs):
+    """Override operator context (Blender 3.2+)."""
+    return context.temp_override(**kwargs)
+
+
 def get_system(context):
     if IS_LEGACY:
         return get_prefs(context).system
